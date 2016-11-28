@@ -12,11 +12,19 @@ void hal_mag3110_init(void) {
 }
 
 void hal_mag3110_set_power(uint8_t on) {
+	int count = 0;
 	if(on) {
 		PJOUT |= BIT7;
 		hal_i2c_init();
 		while(hal_mag3110_reg_write(HAL_MAG3110_REG_CTRL_REG1, HAL_MAG3110_REG_CTRL_REG1_AC | HAL_MAG3110_REG_CTRL_REG1_OS(0) | HAL_MAG3110_REG_CTRL_REG1_DR(5)))
-			;
+		{
+			if (count++ > 10000)
+			{
+				break;
+				/* keep this from hanging */ 
+			}
+
+		}
 		hal_mag3110_reg_write(HAL_MAG3110_REG_CTRL_REG2, HAL_MAG3110_REG_CTRL_REG2_RAW|HAL_MAG3110_REG_CTRL_REG2_AUTO_MRST_EN);
 	}
 	else {

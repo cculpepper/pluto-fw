@@ -4,5 +4,5 @@
 
 void svc_init(void) {
 	svc_alarm_init();
-	hal_aes_init();
+	/*hal_aes_init();*/
 }

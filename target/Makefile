@@ -34,7 +34,7 @@ clean:
 	$(RM) output
 
 program: $(OUTDIR)/$(TARGET).elf
-	mspdebug tilib "prog $<"
+	mspdebug rf2500  --fet-force-id MSP430FR5969 "prog $<"
 
 debug : $(OUTDIR)/$(TARGET).elf
 	$(GD) -x init.gdb $<

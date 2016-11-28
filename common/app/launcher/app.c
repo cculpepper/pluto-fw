@@ -54,12 +54,17 @@ static const svc_menu_item_text_t menu_item6 = {
 static const svc_menu_item_text_t menu_item7 = {
 	.text = "   otp",
 	.handler = launch,
-	.user_data = (void *)&app_app_otp,
+	.user_data = (void *)&app_app_sunrise,
 };
 static const svc_menu_item_text_t menu_item8 = {
 	.text = "speed",
 	.handler = launch,
 	.user_data = (void *)&app_app_speed,
+};
+static const svc_menu_item_text_t menu_item9 = {
+	.text = "sunri",
+	.handler = launch,
+	.user_data = (void *)&app_app_sunrise,
 };
 
 static const svc_menu_item_text_t *menu_items[] = {
@@ -72,6 +77,7 @@ static const svc_menu_item_text_t *menu_items[] = {
 	(void*)&menu_item6,
 	(void*)&menu_item7,
 	(void*)&menu_item8,
+	(void*)&menu_item9,
 };
 
 static const svc_menu_t menu = {
