@@ -138,6 +138,9 @@ static void show_sunset(svc_menu_state_t *state, svc_menu_item_unknown_t *item, 
 static void show_sunrise(svc_menu_state_t *state, svc_menu_item_unknown_t *item, void *userdata){
 	svc_lcd_puti(0,4, sunrise_time);
 }
+static void show_moon_phase(svc_menu_state_t *state, svc_menu_item_unknown_t *item, void *userdata){
+	svc_lcd_puti(0,4, sunrise_time);
+}
 static const svc_menu_item_text_t menu_item_sunrise = {
 	.type = SVC_MENU_ITEM_T_TEXT,
 	.text = "    sr",

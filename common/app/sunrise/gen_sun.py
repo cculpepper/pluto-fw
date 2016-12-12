@@ -45,7 +45,7 @@ NYC_TIME = pytz.timezone('America/New_York')
 numDays = [31,28,31,30,31,30,31,31,30,31,30,31]
 leapYears = [2016,2020,2024,2030]
 firstYear = 2016
-numYears = 4
+numYears = 1
 # Lets print out the number of days in each month and what the leap years to
 # the file, as well as the starting year
 numDaysStr = "static const uint8_t month_days[12] = {" + ", ".join(str(num) for num in numDays) + "};\n"
@@ -68,6 +68,11 @@ moonriseStr = moonriseStr + "static const uint8_t moonrise_times[] = {"
 moonsetStr = "// The moonset times are noted in tenths of hours after midnight\n"
 moonsetStr = moonsetStr + "// These times take into account daylight savings time. \n "
 moonsetStr = moonsetStr + "static const uint8_t moonset_times[] = {"
+
+moonIllumFracStr = "// The moon illumination percentages are the percent that the moon is illuminated\n"
+moonIllumFracStr = moonIllumFracStr + "// If the percentage is > 100, then the phase is increasing, < 100, decreasing. Just subtract 101 if increasing\n "
+moonIllumFracStr = moonIllumFracStr + "static const uint8_t moon_illum_frac[] = {"
+previousMoonPhase = 0
 
 #Set up the first moonset data that we save
 ephemCity.date = ephem.Date(datetime.datetime(firstYear, 1,1))
@@ -98,6 +103,14 @@ for year in range(firstYear, firstYear + numYears):
             #print(ephemCity.date)
             moon = ephem.Moon(ephemCity)
             ephemSun = ephem.Sun(ephemCity)
+            moonPhase = moon.phase
+            import pdb;pdb.set_trace()
+            if moonPhase > previousMoonPhase:
+                moonPhase = moonPhase + 101
+            moonPhase = round(moonPhase)
+            moonIllumFracStr  = moonIllumFracStr + str(moonPhase) + ", "
+            previousMoonPhase = moon.phase
+
             moonrise = ephemCity.previous_rising(moon)
             moonrise = ephem.localtime(moonrise)
 
@@ -187,5 +200,7 @@ f.write(numDaysStr)
 f.write(leapYearsStr)
 f.write("uint16_t first_year = " + str(firstYear) + ";\n")
 f.write("uint8_t num_years = " + str(numYears) + ";\n")
+moonIllumFracStr = moonIllumFracStr[:-2]
+f.write(moonIllumFracStr + "};\n")
 
 f.close()
