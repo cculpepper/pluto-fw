@@ -45,7 +45,7 @@ NYC_TIME = pytz.timezone('America/New_York')
 numDays = [31,28,31,30,31,30,31,31,30,31,30,31]
 leapYears = [2016,2020,2024,2030]
 firstYear = 2016
-numYears = 1
+numYears = 7
 # Lets print out the number of days in each month and what the leap years to
 # the file, as well as the starting year
 numDaysStr = "static const uint8_t month_days[12] = {" + ", ".join(str(num) for num in numDays) + "};\n"
@@ -104,7 +104,7 @@ for year in range(firstYear, firstYear + numYears):
             moon = ephem.Moon(ephemCity)
             ephemSun = ephem.Sun(ephemCity)
             moonPhase = moon.phase
-            import pdb;pdb.set_trace()
+            #import pdb;pdb.set_trace()
             if moonPhase > previousMoonPhase:
                 moonPhase = moonPhase + 101
             moonPhase = round(moonPhase)
@@ -201,6 +201,6 @@ f.write(leapYearsStr)
 f.write("uint16_t first_year = " + str(firstYear) + ";\n")
 f.write("uint8_t num_years = " + str(numYears) + ";\n")
 moonIllumFracStr = moonIllumFracStr[:-2]
-f.write(moonIllumFracStr + "};\n")
+#f.write(moonIllumFracStr + "};\n")
 
 f.close()

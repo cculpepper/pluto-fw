@@ -148,11 +148,11 @@ int main(void) {
 	char secret[] = {1,2,3};
 
 	int32_t out = 5;
-	oath_totp_generate (secret,
-		    3,
-		    1462981437, //now
-		    30,
-		    0, 6, &out);
+	/*oath_totp_generate (secret,*/
+		    /*3,*/
+		    /*1462981437, //now*/
+		    /*30,*/
+		    /*0, 6, &out);*/
 	printf("=%d\n", out);
 	
 	beep_startup();

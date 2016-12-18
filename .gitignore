@@ -40,3 +40,9 @@
 # emacs
 .clang_complete
 Makefile2
+
+# python
+*.pyc
+
+# vm
+*.swp
