@@ -1,10 +1,13 @@
 #include "app.h"
 #include "../../svc/svc.h"
 #include <string.h>
+#include "common/svc/hundredths.h"
 
 void app_app_time_display_enter(uint8_t view, const app_t *app) {
 	PRIV(app)->needs_clear = 1;
 }
+
+uint8_t last_hundredths = 0;
 
 void app_app_time_display_main(uint8_t view, const app_t *app, svc_main_proc_event_t event) {
 	hal_lcd_set_mode(HAL_LCD_MODE_IMMEDIATE);
@@ -98,6 +101,21 @@ void app_app_time_display_main(uint8_t view, const app_t *app, svc_main_proc_eve
 					hal_lcd_seg_set(HAL_LCD_SEG(4, 5), td.s>((60/8)*7));
 					hal_lcd_seg_set(HAL_LCD_SEG(4, 0), td.s>((60/8)*8));
 				}
+				if(td.dom != td_last->dom)
+					svc_lcd_puti_fast(6, 2, td.dom);
+			break;
+
+			case BASE_HUND:
+				hal_lcd_seg_set(HAL_LCD_SEG_COLON, 1); 
+				hal_lcd_seg_set_blink(HAL_LCD_SEG_COLON, 1);
+				if(td.h != td_last->h)
+					svc_lcd_puti_fast(0, 2, td.h);
+				if(td.m != td_last->m)
+					svc_lcd_puti_fast(2, 2, td.m);
+				if(svc_hund_get_hundredths() != last_hundredths)
+					last_hundredths = svc_hund_get_hundredths();
+					svc_lcd_puti_fast(4, 2, last_hundredths);
+					svc_lcd_force_redraw();
 				if(td.dom != td_last->dom)
 					svc_lcd_puti_fast(6, 2, td.dom);
 			break;

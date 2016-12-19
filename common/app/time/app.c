@@ -1,5 +1,6 @@
 #include "app.h"
 #include "platform.h"
+#include "common/svc/hundredths.h"
 
 
 
@@ -13,6 +14,12 @@ static void lang_set(uint8_t choice, void *ud) {
 
 static void base_set(uint8_t choice, void *ud) {
 	*(PRIV(app_current)->base) = choice;
+	if (choice == BASE_HUND){
+		svc_hund_start();
+	} else {
+		svc_hund_stop();
+	}
+
 }
 
 static uint8_t lang_get(void *ud) {
@@ -153,11 +160,12 @@ static const svc_menu_item_choice_t menu_item_base = {
 	.type = SVC_MENU_ITEM_T_CHOICE,
 	.text = "base",
 	.choice_pos = 4,
-	.n_choices = 3,
+	.n_choices = 4,
 	.choices = {
 		"de",
 		"he",
 		"bi",
+		"hu",
 	},
 	.handler_set = base_set,
 	.handler_get = base_get,

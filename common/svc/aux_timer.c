@@ -27,6 +27,9 @@ void svc_aux_timer_handler(void) {
 	if(aux_timer_req & SVC_AUX_TIMER_REQUIRED_CHRO) {
 		svc_aux_timer_chro_handler();
 	}
+	if(aux_timer_req & SVC_AUX_TIMER_REQUIRED_HUND) {
+		svc_aux_timer_hund_handler();
+	}
 }
 
 void svc_aux_timer_set_call_main(void) {

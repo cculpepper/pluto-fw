@@ -12,6 +12,7 @@ SRC += ../common/svc/lcd.c \
        ../common/svc/compass.c \
        ../common/svc/init.c \
        ../common/svc/otp.c \
+       ../common/svc/hundredths.c \
 
 include ../common/svc/otp/sources.mk
 

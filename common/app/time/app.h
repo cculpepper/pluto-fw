@@ -1,12 +1,14 @@
 #include "common/app/app.h"
 #include "common/app/apps.h"
 #include "common/svc/svc.h"
+#include "common/svc/hundredths.h"
 #include "common/hal/hal.h"
 #include "common/hal/lcd_segments.h"
 typedef enum {
 	BASE_DEC = 0,
 	BASE_HEX,
 	BASE_BIN,
+	BASE_HUND,
 } base_t;
 
 typedef struct {
